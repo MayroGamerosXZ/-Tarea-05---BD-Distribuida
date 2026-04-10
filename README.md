@@ -33,3 +33,20 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado en tu sistema:
 Clona este repositorio, abre una terminal en la carpeta raíz del proyecto y ejecuta:
 ```bash
 docker-compose up --build -d
+```
+
+###2. Configurar la Base de Datos
+Abre SQL Server Management Studio (SSMS) o Azure Data Studio.
+
+Conéctate a localhost,1433 con el usuario sa y la contraseña configurada en tu docker-compose.yml.
+
+Ejecuta el Mega Script Maestro (incluido en la carpeta /sql) para crear la base de datos movefast, las tablas transaccionales e insertar los usuarios de prueba.
+
+###3. Iniciar la Interfaz de Usuario (Cliente)
+Abre una nueva terminal en tu computadora (fuera de Docker), instala las dependencias de Python y ejecuta la aplicación:
+
+Bash
+```
+pip install customtkinter requests
+python app_cliente.py
+```
