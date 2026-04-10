@@ -50,3 +50,17 @@ Bash
 pip install customtkinter requests
 python app_cliente.py
 ```
+
+### 4.Cómo probar la Tolerancia a Fallos (Teorema CAP)
+Abre tu navegador y ve al dashboard interactivo de la API: 
+```
+http://localhost:8000/docs
+```
+
+En la sección de la App, intenta pedir un viaje en México (MX). Verás que el viaje es Aceptado.
+
+En la documentación de FastAPI (Swagger), busca el endpoint POST /admin/toggle_node/{node_code}.
+
+Ingresa MX y ejecútalo para forzar la caída (OFFLINE) del servidor de México.
+
+Vuelve a tu App e intenta pedir otro viaje en México. Verás que la API bloquea la transacción lanzando un Error CRÍTICO 503, demostrando la protección de consistencia de datos.
