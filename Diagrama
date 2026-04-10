@@ -1,3 +1,4 @@
+```
 graph TD
     %% Paleta de colores basada en las tecnologías reales usadas
     classDef python fill:#3776AB,stroke:#2b5b84,stroke-width:2px,color:#fff,rx:8,ry:8
@@ -35,3 +36,4 @@ graph TD
 
     %% Etiqueta para GitHub
     class App,API,DB_GT,DB_MX,DB_US docker;
+```
