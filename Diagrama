@@ -1,39 +1,38 @@
-```
+```mermaid
 graph TD
-    %% Paleta de colores basada en las tecnologías reales usadas
+    %% Clases de diseño limpias
     classDef python fill:#3776AB,stroke:#2b5b84,stroke-width:2px,color:#fff,rx:8,ry:8
     classDef fastapi fill:#009688,stroke:#00796b,stroke-width:2px,color:#fff,rx:8,ry:8
-    classDef docker fill:#2496ED,stroke:#1d7bc2,stroke-width:2px,color:#fff,rx:8,ry:8
     classDef sqlserver fill:#CC292B,stroke:#9e1f21,stroke-width:2px,color:#fff,rx:8,ry:8
     classDef external fill:#2b2b2b,stroke:#1a1a1a,stroke-width:2px,color:#fff,rx:8,ry:8
 
-    Usuario((👤 Usuario / Pasajero)):::external
+    %% Nodo externo
+    Usuario(("👤 Usuario / Pasajero")):::external
 
-    subgraph "Capa de Presentación"
-        App[💻 app_cliente.py<br/>UI Nativa asíncrona con CustomTkinter]:::python
+    %% Capas de Arquitectura (Nombres de subgrafos compatibles con GitHub)
+    subgraph Presentacion ["Capa de Presentación"]
+        App["💻 app_cliente.py<br>UI Nativa con CustomTkinter"]:::python
     end
 
-    subgraph "Entorno Dockerizado (Backend)"
-        API[⚡ main.py <br/>API Gateway con FastAPI]:::fastapi
+    subgraph Backend ["Entorno Dockerizado (Backend)"]
+        API["⚡ main.py <br>API Gateway con FastAPI"]:::fastapi
         
-        subgraph "Capa de Datos (Sharding Geográfico)"
-            DB_GT[(🇬🇹 Shard GT<br/>SQL Server)]:::sqlserver
-            DB_MX[(🇲🇽 Shard MX<br/>SQL Server)]:::sqlserver
-            DB_US[(🇺🇸 Shard US<br/>SQL Server)]:::sqlserver
+        subgraph Datos ["Capa de Datos (Sharding Geográfico)"]
+            DB_GT[("🇬🇹 Shard GT<br>SQL Server")]:::sqlserver
+            DB_MX[("🇲🇽 Shard MX<br>SQL Server")]:::sqlserver
+            DB_US[("🇺🇸 Shard US<br>SQL Server")]:::sqlserver
         end
     end
-
+```
     %% Flujo de datos
-    Usuario -->|Interactúa| App
-    App -->|Petición HTTP REST<br/>Puerto 8000| API
+    Usuario -->|"Interactúa"| App
+    App -->|"Petición HTTP REST (Puerto 8000)"| API
     
-    %% Lógica de Gateway y CAP Theorem
-    API -.->|Evalúa Disponibilidad<br/>Teorema CAP| API
+    %% Lógica de Gateway
+    API -.->|"Evalúa Disponibilidad (Teorema CAP)"| API
     
-    API ==>|Conexión PyODBC| DB_GT
-    API ==>|Conexión PyODBC| DB_MX
-    API ==>|Conexión PyODBC| DB_US
-
-    %% Etiqueta para GitHub
-    class App,API,DB_GT,DB_MX,DB_US docker;
+    %% Conexiones a BD
+    API ==>|"Conexión PyODBC"| DB_GT
+    API ==>|"Conexión PyODBC"| DB_MX
+    API ==>|"Conexión PyODBC"| DB_US
 ```
